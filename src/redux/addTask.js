@@ -27,6 +27,13 @@ const task_event = createSlice({
             if (task) task.completed = !task.completed;
             saveTasks(state);
         },
+        editTask:(state,action) => {
+            const task = state.find((task) => task.id === action.payload.id);
+            if (task) {
+                task.text = action.payload.newText; 
+                saveTasks(state);
+            }
+        },
         removeCompetedTask:(state,action)=>{
             const newState = state.filter((task) => !task.completed);
             saveTasks(newState);
@@ -36,5 +43,5 @@ const task_event = createSlice({
     }
 });
 
-export const { addTask ,removeTask ,toggleTask ,removeCompetedTask} = task_event.actions;
+export const { addTask ,removeTask ,toggleTask ,editTask,removeCompetedTask} = task_event.actions;
 export default task_event.reducer;
